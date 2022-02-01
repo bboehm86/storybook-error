@@ -1,0 +1,51 @@
+{
+  "projectType": "library",
+  "root": "libs/failing-lib",
+  "sourceRoot": "libs/failing-lib/src",
+  "prefix": "storybook-error",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/failing-lib/src/**/*.ts",
+          "libs/failing-lib/src/**/*.html"
+        ]
+      }
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "port": 4400,
+        "config": {
+          "configFolder": "libs/failing-lib/.storybook"
+        },
+        "projectBuildConfig": "failing-lib:build-storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "outputPath": "dist/storybook/failing-lib",
+        "config": {
+          "configFolder": "libs/failing-lib/.storybook"
+        },
+        "projectBuildConfig": "failing-lib:build-storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
